@@ -102,7 +102,7 @@ body.reading #bal{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 @media(max-width:520px){.mh .dd{min-width:62px;font-size:11px}.mh p{font-size:12px}}
 </style></head><body><div class="wrap">
 <header><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 8C8 10 5.9 16.2 3.8 20.2l1.9 1c.7-1.4 1.4-2.6 2.2-3.7 1.6.6 3.2.8 4.8.5C19 17 21 10 21 3c-1.2 1.4-2.6 2.3-4 3.2z"/></svg>
-<div><h1>Missão <b>IMA SC</b> · Analista de Informática</h1><div class="sub">APOSTILA PASSEI · 31 DIAS · 12/11/2026 → 12/12/2026 · ~10 PÁGINAS POR DISCIPLINA</div></div></header>
+<div><h1>Missão <b>IMA SC</b> · Analista de Informática</h1><div class="sub">APOSTILA PASSEI · 31 DIAS · 13/11/2026 → 13/12/2026 · ~10 PÁGINAS POR DISCIPLINA</div></div></header>
 <div class="stats">
 <div class="st"><small>Dias concluídos</small><strong id="cnt">0/31</strong></div>
 <div class="st"><small>Páginas lidas</small><strong id="pgn">0/810</strong></div>
@@ -126,7 +126,7 @@ const save=()=>{try{localStorage.setItem('ima31',JSON.stringify(S))}catch(e){}};
 let T=S.timer||null,view='c',flt='all',exp=-1,mexp=-1;
 const TOT=D.disc.reduce((s,d)=>s+d.b-d.a+1,0);
 const WD=['dom','seg','ter','qua','qui','sex','sáb'],P2=x=>String(x).padStart(2,'0'),N=D.days.length;
-const dt=i=>new Date(2026,10,12+i),iso=d=>{const x=new Date(d);x.setMinutes(x.getMinutes()-x.getTimezoneOffset());return x.toISOString().slice(0,10)};
+const dt=i=>new Date(2026,10,13+i),iso=d=>{const x=new Date(d);x.setMinutes(x.getMinutes()-x.getTimezoneOffset());return x.toISOString().slice(0,10)};
 const lab=d=>WD[d.getDay()]+' '+P2(d.getDate())+'/'+P2(d.getMonth()+1);
 const bd=(i,j)=>!!S.b[i+'-'+j],dd=i=>bd(i,0)&&bd(i,1);
 const tops=(a,b)=>D.top.filter(t=>t[3]<=b&&t[4]>=a);
