@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Missão IMA SC · 93 dias</title>
+<style>:root{color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#0d0f12;--card:#14171b;--card2:#181c21;--line:#242a31;--tx:#e9ecef;--mut:#8a93a0;--red:#e5484d;--red2:#ff6a6f;--gold:#e8b04a;--ok:#3dd68c;
+--h:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;--m:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 56px}
+header{display:flex;gap:14px;align-items:center;padding:0 0 22px}
+header svg{width:38px;height:38px;flex:none;color:var(--red2)}
+h1{font:600 22px/1.2 var(--h);letter-spacing:-.01em;margin:0}
+h1 b{color:var(--red2);font-weight:600}
+.sub{color:var(--mut);font:12px var(--m);letter-spacing:.02em}
+.tape{display:none}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.st{background:var(--card);border:1px solid var(--line);padding:14px 16px;border-radius:12px}
+.st small{display:block;color:var(--mut);font:500 11px var(--h);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.st strong{font:600 20px var(--h)}
+.bar{height:6px;background:#20252b;border-radius:99px;overflow:hidden;margin:18px 0 8px}
+.bar i{display:block;height:100%;width:0;background:var(--red);border-radius:99px;transition:width .4s}
+.today{margin:20px 0;border:1px solid var(--line);border-left:3px solid var(--red);background:var(--card);padding:16px 18px;border-radius:12px;display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.today h2{margin:2px 0;font:600 18px var(--h)}
+button,.btn{font:500 13px var(--h);background:var(--red);color:#fff;border:1px solid transparent;padding:9px 16px;border-radius:8px;cursor:pointer;transition:.15s}
+button:hover{background:var(--red2)}
+button.ghost{background:transparent;border-color:var(--line);color:var(--mut)}
+button.ghost:hover{color:var(--tx);border-color:#343b44}
+button.ghost.on{background:#20252b;border-color:#343b44;color:var(--tx)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:20px 0 14px}
+.tools label{color:var(--mut);font:12px var(--h);margin-left:auto}
+.tools label+label{margin-left:0}
+input[type=date],input[type=number],input[type=text],textarea{background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font:13px var(--h);outline:none}
+input:focus{border-color:#3a424b}
+.grid{display:flex;flex-direction:column;gap:8px}
+.m{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:border-color .15s}
+.m:hover{border-color:#333a42}
+.mh{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer;user-select:none}
+.mh .n{min-width:60px;font:600 15px var(--h)}
+.mh .n span{color:var(--mut);font-weight:400;margin-right:1px}
+.mh p{flex:1;margin:0;color:var(--mut);font-size:13px;line-height:1.35}
+.tag{flex:none;font:500 11px var(--m);padding:2px 9px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+.mini{width:56px;height:3px;background:#20252b;border-radius:99px;overflow:hidden;flex:none}
+.mini i{display:block;height:100%;background:var(--ok)}
+.chev{color:var(--mut);font-size:13px;width:14px;flex:none;text-align:center}
+.m.done{background:#111613;border-color:#1c3326}.m.done .tag{color:var(--ok);border-color:#1f5538}
+.m.cur{border-color:#5a2a2e}.m.cur .tag{color:var(--red2);border-color:#5a2a2e}
+.m.late .tag{color:var(--gold);border-color:#5c4a22}
+.m.open{border-color:#343b44}.m.open .mh{background:var(--card2)}
+.mb{border-top:1px solid var(--line);padding:14px 16px 16px;display:grid;gap:10px;background:var(--card)}
+.ck{display:flex;gap:12px;align-items:flex-start;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer}
+.ck input{margin-top:3px;accent-color:var(--red);width:17px;height:17px;flex:none}
+.ck b{display:block;font:500 14px var(--h)}
+.ck span{color:var(--mut);font:12px var(--h)}
+.ck.on{opacity:.5}.ck.on b{text-decoration:line-through}
+.pl{display:inline-block;margin-top:8px;color:var(--red2);font:500 12px var(--h);text-decoration:none;border:1px solid var(--line);padding:4px 11px;border-radius:7px;transition:.15s}
+.pl:hover{background:#20252b;border-color:#343b44}
+.rg{margin-left:auto;flex:none;text-align:center;background:#1f1214;border:1px solid #5a2a2e;border-radius:10px;padding:7px 14px;min-width:84px}
+.rg small{display:block;font:500 10px var(--h);text-transform:uppercase;letter-spacing:.1em;color:var(--mut)}
+.ck .rg b{display:block;font:600 18px/1.25 var(--h);color:var(--red2);white-space:nowrap;text-decoration:none}
+@media(max-width:520px){.ck{flex-wrap:wrap}.rg{margin-left:29px;display:flex;gap:8px;align-items:baseline;padding:5px 12px}.rg small{display:inline}.ck .rg b{display:inline;font-size:15px}}
+#bal{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:9px;background:#1f1214;border:1px solid #5a2a2e;color:var(--tx);padding:8px 15px;border-radius:99px;font:600 14px var(--m);cursor:pointer;box-shadow:0 6px 24px #000a}
+#bal[hidden]{display:none}
+#bal i{width:8px;height:8px;border-radius:50%;background:var(--red2);animation:bl 1.2s infinite}
+#bal em{font:500 11px var(--h);color:var(--mut);font-style:normal}
+@keyframes bl{50%{opacity:.25}}
+#rd{position:fixed;inset:0;z-index:40;background:var(--bg);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
+#rd[hidden]{display:none}
+.rt{display:flex;align-items:center;gap:8px 10px;padding:8px 12px;border-bottom:1px solid var(--line);background:var(--card);flex-wrap:wrap}
+.rtt{flex:1;min-width:150px;line-height:1.3}.rtt b{display:block;font:600 13px var(--h)}
+.rtt span{font:12px var(--m);color:var(--mut);cursor:pointer}.rtt span.in{color:var(--ok)}
+.rn{display:flex;align-items:center;gap:6px;font:500 13px var(--m)}
+.rt button{padding:7px 12px}.rt .pl{margin:0}
+#rv{flex:1;overflow:auto;background:#0a0b0d;padding:12px;-webkit-overflow-scrolling:touch}
+#rc{display:block;margin:0 auto;max-width:none;background:#fff;border-radius:4px}
+#rc.inv{filter:invert(.9) hue-rotate(180deg)}
+#rmsg{color:var(--mut);font:13px/1.7 var(--h);padding:28px 8px;text-align:center}#rmsg:empty{display:none}#rmsg:not(:empty)+#rc{display:none}
+#rmsg input{margin-top:10px;color:var(--mut);font:13px var(--h)}
+#rbar{display:flex;gap:10px;justify-content:center;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:var(--card)}
+#rbar button{padding:13px 18px;font-size:15px}#rbar #rbn{flex:1;max-width:340px}
+#rext{display:none}button:disabled{opacity:.35;cursor:default}
+body.reading #bal{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+.tools label.dt{margin-left:auto;display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid #5a2a2e;color:var(--tx);font:500 13px var(--h);padding:5px 6px 5px 12px;border-radius:8px}
+.tools label.dt.need{border-color:var(--red2);box-shadow:0 0 0 3px #ff6a6f26}
+@media(max-width:520px){.tools label.dt{width:100%;justify-content:space-between}}
+.note{color:var(--mut);font:12px/1.5 var(--h);margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}
+@media(max-width:520px){.mh .mini{display:none}.mh p{font-size:12px}.tools label{margin-left:0}h1{font-size:19px}}
+
+:root{--red:#2fa36b;--red2:#4ade98}
+.rg,#bal{background:#0e1f17;border-color:#245a3d}
+.m.cur{border-color:#245a3d}.m.cur .tag{color:var(--red2);border-color:#245a3d}
+.m.td{border-color:var(--gold)}.m.td .tag{color:var(--gold);border-color:#5c4a22}
+.wk{color:var(--mut);font:500 11px var(--h);text-transform:uppercase;letter-spacing:.1em;margin:16px 2px 0}
+.wk:first-child{margin-top:0}
+.mh .dd{color:var(--mut);font:12px var(--m);min-width:74px}
+.mh p{display:flex;flex-wrap:wrap;gap:2px 14px}
+.dc{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}.dc i{width:8px;height:8px;border-radius:50%;flex:none}
+.ck em{color:var(--gold);font-style:normal;font-size:11px}
+.ck span{line-height:1.5}
+.tp{display:flex;gap:10px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card2);font-size:13px;line-height:1.4}
+.tp b{flex:none;width:16px;color:var(--ok);font-weight:500}.tp div{flex:1}.tp small{display:block;color:var(--mut);font:11.5px var(--m);margin-top:2px}
+.tabs{display:flex;gap:8px;margin:20px 0 12px}
+@media(max-width:520px){.mh .dd{min-width:62px;font-size:11px}.mh p{font-size:12px}}
+</style></head><body><div class="wrap">
+<header><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 8C8 10 5.9 16.2 3.8 20.2l1.9 1c.7-1.4 1.4-2.6 2.2-3.7 1.6.6 3.2.8 4.8.5C19 17 21 10 21 3c-1.2 1.4-2.6 2.3-4 3.2z"/></svg>
+<div><h1>Missão <b>IMA SC</b> · Analista de Informática</h1><div class="sub">APOSTILA PASSEI · 93 DIAS · 12/11/2026 → 12/02/2027 · 2 DISCIPLINAS POR DIA</div></div></header>
+<div class="stats">
+<div class="st"><small>Dias concluídos</small><strong id="cnt">0/93</strong></div>
+<div class="st"><small>Páginas lidas</small><strong id="pgn">0/944</strong></div>
+<div class="st"><small>Horas estudadas</small><strong id="hrs">0h 00min</strong></div>
+<div class="st"><small>Sequência</small><strong id="streak">0 dias</strong></div>
+<div class="st"><small>Prazo final</small><strong id="left">—</strong></div>
+</div>
+<div class="bar"><i id="pb"></i></div><div class="sub" id="pt"></div>
+<div class="today"><div><div class="sub" id="tk">PRÓXIMA OPERAÇÃO</div><h2 id="tt">—</h2><div class="sub" id="ts"></div></div><button id="go">Abrir dia</button></div>
+<div class="tabs"><button class="ghost on" data-v="c">Cronograma</button><button class="ghost" data-v="m">Módulos por disciplina</button></div>
+<div class="tools" id="tools"><button class="ghost on" data-f="all">Todos</button><button class="ghost" data-f="pend">Pendentes</button><button class="ghost" data-f="done">Concluídos</button></div>
+<div class="grid" id="grid"></div>
+<div class="note">Páginas conforme o rodapé do PDF (o sumário da apostila está 3 páginas atrás da numeração real). Mantenha o PDF na mesma pasta, com o nome original. Progresso salvo neste aparelho.</div>
+</div>
+<script>
+const D={"disc":[{"n":"Direito Constitucional","a":6,"b":47,"c":"#6aa9ff"},{"n":"Direito Administrativo","a":48,"b":143,"c":"#9b8cff"},{"n":"Raciocínio Lógico-Matemático","a":144,"b":277,"c":"#f5a623"},{"n":"Administração","a":278,"b":350,"c":"#2ec4b6"},{"n":"Língua Portuguesa","a":351,"b":532,"c":"#ff7aa8"},{"n":"Ética e Moral","a":533,"b":572,"c":"#b9d36c"},{"n":"Analista de Informática","a":573,"b":913,"c":"#3dd68c"},{"n":"Legislação Ambiental Aplicada","a":914,"b":949,"c":"#5ad1e6"}],"top":[[0,"1.1","Constituição Federal de 1988: Princípios Fundamentais",6,12],[0,"1.2","Direitos e Deveres Individuais e Coletivos",13,24],[0,"1.3","Direitos Sociais",25,35],[0,"1.4","Disposições Constitucionais Relativas à Administração Pública (Art. 37 a 41)",36,47],[1,"2.1","Administração Pública: Conceitos, Fundamentos, Características e Finalidade",48,53],[1,"2.2","Princípios Constitucionais e Doutrinários da Administração Pública",54,65],[1,"2.3","Regime jurídico-administrativo: Supremacia e Indisponibilidade do Interesse Público",66,70],[1,"2.4","Organização Administrativa: Centralização, Decentralização, Concentração e Desconcentração",71,77],[1,"2.5","Administração Direta e Indireta: Autarquias, Fundações, Empresas Públicas e Sociedades de Economia Mista",78,84],[1,"2.6","Atos Administrativos: Requisitos, Elementos, Atributos e Espécies",85,93],[1,"2.7","Atos Administrativos: Validade, Eficácia, Extinção, Desfazimento e Convalidação",94,99],[1,"2.8","Processo Administrativo: Princípios, Competência, Motivação e Recursos",100,108],[1,"2.9","Lei Federal Nº 9.784/1999 (Processo Administrativo)",109,116],[1,"2.10","Transparência e Acesso à Informação: Lei Federal Nº 12.527/2011 (Lai)",117,124],[1,"2.11","Improbidade Administrativa: Lei Federal Nº 8.429/1992",125,132],[1,"2.12","Proteção de Dados Pessoais no Setor Público: Lei Federal Nº 13.709/2018 (LGPD)",133,143],[2,"3.1","Estruturas Lógicas: Relações entre Pessoas, Lugares, Objetos e Eventos",144,149],[2,"3.2","Dedução de Informações e Avaliação de Condições Necessárias e Suficientes",150,154],[2,"3.3","Raciocínio Verbal, Matemático, Sequencial, Espacial e Temporal",155,161],[2,"3.4","Problemas Aritméticos e Geométricos",162,166],[2,"3.5","Números Inteiros e Racionais: Operações, Decimais e Frações",167,174],[2,"3.6","Razões e Proporções e Divisão em Partes Proporcionais",175,181],[2,"3.7","Regra de Três Simples e Composta",182,186],[2,"3.8","Porcentagem",187,193],[2,"3.9","Princípios de Contagem e Análise Combinatória Básica",194,200],[2,"3.10","Probabilidade",201,207],[2,"3.11","Operações com Conjuntos",208,214],[2,"3.12","Sistema Métrico: Medidas de Tempo, Comprimento, Área e Volume",215,220],[2,"3.13","Interpretação e Análise de Gráficos e Tabelas",221,231],[2,"3.14","Média Aritmética Simples e Ponderada",232,236],[2,"3.15","Sequências, Padrões e Regularidades Lógicas",237,243],[2,"3.16","Lógica Proposicional: Proposições, Conectivos e Valores Lógicos",244,250],[2,"3.17","Equivalências Lógicas e Negações",251,256],[2,"3.18","Inferências, Argumentos e Relações de Implicação",257,263],[2,"3.19","Formação de Conceitos, Classificação e Discriminação de Elementos",264,268],[2,"3.20","Resolução de situações-problema Envolvendo Raciocínio Lógico",269,277],[3,"4.1","Orçamento Público: Conceitos, Funções e Princípios Orçamentários",278,286],[3,"4.2","Planejamento e Ciclo Orçamentário",287,317],[3,"4.3","Plano Plurianual (PPA), Lei de Diretrizes Orçamentárias (LDO) e Lei Orçamentária Anual (LOA)",318,326],[3,"4.4","Transparência, Controle Social e Accountability",327,336],[3,"4.5","Inteligência Artificial, Automação e Transformação Digital no Setor Público",337,343],[3,"4.6","Ia no Setor Público: Produtividade, Riscos, Vieses e Supervisão Humana",344,350],[4,"5.1","Compreensão e Interpretação de Textos de Diferentes Gêneros",351,357],[4,"5.2","Identificação de Informações Explícitas e Implícitas, Inferências e Pressupostos",358,364],[4,"5.3","Reconhecimento de Tipos e Gêneros Textuais: Características e Finalidades",365,376],[4,"5.4","Funções da Linguagem e Figuras de Linguagem",377,384],[4,"5.5","Coesão Textual: Referenciação, Substituição, Elipse e Conectividade",385,392],[4,"5.6","Coerência Textual e Progressão Temática",393,398],[4,"5.7","Relações de Sentido: Conectivos e Operadores Argumentativos",399,406],[4,"5.8","Ortografia Oficial e Acentuação Gráfica",407,413],[4,"5.9","Uso dos Porquês",414,418],[4,"5.10","Morfologia: Estrutura e Formação de Palavras (Derivação e Composição)",419,424],[4,"5.11","Classes de Palavras: Substantivo, Artigo, Adjetivo, Pronome e Numeral",425,433],[4,"5.12","Classes de Palavras: Verbo, Advérbio, Preposição, Conjunção e Interjeição",434,440],[4,"5.13","Emprego de Tempos e Modos Verbais e Seus Efeitos de Sentido",441,452],[4,"5.14","Sintaxe: Termos Essenciais, Integrantes e Acessórios da Oração",453,461],[4,"5.15","Sintaxe: Período Simples e Composto (Coordenação e Subordinação)",462,468],[4,"5.16","Concordância Verbal e Nominal",469,476],[4,"5.17","Regência Verbal e Nominal",477,482],[4,"5.18","Emprego do Sinal Indicativo de Crase",483,488],[4,"5.19","Colocação dos Pronomes Átonos",489,493],[4,"5.20","Pontuação: Emprego dos Sinais e Efeitos de Sentido",494,500],[4,"5.21","Semântica: Denotação, Conotação, Sinônimos e Antônimos",501,506],[4,"5.22","Semântica: Hipônimos, Hiperônimos, Polissemia e Ambiguidade",507,512],[4,"5.23","Reescrita Textual: Substituição de Termos e Manutenção do Sentido",513,519],[4,"5.24","Reescrita Textual: Reorganização de Estruturas Sintáticas e Correção Gramatical",520,525],[4,"5.25","Variação Linguística: norma-padrão e Adequação Situacional",526,532],[5,"6.1","Ética, Moral e Integridade no Setor Público",533,538],[5,"6.2","Deveres e Responsabilidades dos Agentes Públicos",539,545],[5,"6.3","Conflito de Interesses e Prevenção de Desvios",546,554],[5,"6.4","Relações Humanas no Trabalho",555,562],[5,"6.5","Ética Profissional no Serviço Público",563,572],[6,"7.1","Hardware e Software: Conceitos Fundamentais",573,579],[6,"7.2","Sistemas Operacionais Windows e Linux: Administração de Processos, Memória e Arquivos",580,588],[6,"7.3","Arquiteturas cliente-servidor e Orientada a Serviços (Soa)",589,593],[6,"7.4","Computação em Nuvem: Modelos Iaas, Paas e Saas",594,598],[6,"7.5","Nuvem: Implantação Pública, Privada, Híbrida e Multicloud",599,603],[6,"7.6","Serviços de Nuvem: Aws, Azure e Gcp",604,609],[6,"7.7","Virtualização (Hyper-V e Kvm), Contêineres (Docker) e Orquestração",610,620],[6,"7.8","Redes de Computadores: Modelo TCP/IP e sub-redes",621,625],[6,"7.9","Protocolos de Rede: Dns, Dhcp, Nat, FTP/SFTP, Ssh, Ntp",626,632],[6,"7.10","Protocolos Web: HTTP/1.1, HTTP/2, HTTP/3, Https e TLS/SSL",633,637],[6,"7.11","Infraestrutura de Rede: Vlans, Firewalls, Waf, Proxies e Vpns (Ipsec e Openvpn)",638,652],[6,"7.12","Monitoramento e Diagnóstico de Rede: Wireshark, Tcpdump e Icmp",653,659],[6,"7.13","Segurança da Informação: Confidencialidade, Integridade, Disponibilidade, Autenticidade e Não Repúdio",660,665],[6,"7.14","Criptografia Simétrica e Assimétrica (Aes, Rsa, Ecc) e Funções Hash (SHA-256 e Bcrypt)",666,676],[6,"7.15","Assinatura Digital, Certificados Digitais e ICP-Brasil",677,681],[6,"7.16","Gestão de Identidade e Acesso (Iam): Mfa, Sso, Rbac, Abac, OAuth2 e Openid Connect",682,687],[6,"7.17","Vulnerabilidades Owasp Top 10 e Segurança de Aplicações",688,692],[6,"7.18","Devsecops: Sast, Dast e Sca",693,696],[6,"7.19","Ameaças: Engenharia Social, Phishing, Ransomware, Ddos, Malware, Spoofing e Força Bruta",697,703],[6,"7.20","Gestão de Incidentes e Ferramentas: Ngfw, IDS/IPS, Siem e Edr",704,709],[6,"7.21","Políticas de Backup (Regra 3-2-1) e Plano de Recuperação de Desastres (Drp)",710,715],[6,"7.22","Arquitetura Zero Trust",716,718],[6,"7.23","Governança de TI: Itil 4, Svs e as Quatro Dimensões",719,722],[6,"7.24","Gestão de Serviços: Incidentes, Problemas, Mudanças, Ativos e Configurações",723,729],[6,"7.25","Acordos de Nível de Serviço: SLA/OLA, Service Desk e Catálogo de Serviços",730,735],[6,"7.26","Banco de Dados: Modelagem Conceitual, Lógica e Física (Er e Normalização)",736,740],[6,"7.27","Sgbd: Postgresql e Mysql",741,745],[6,"7.28","Linguagem SQL: Ddl, Dml, Dcl, Consultas, Junções, Subconsultas e Agregações",746,752],[6,"7.29","Objetos de Banco de Dados: Views, Triggers, Stored Procedures e Índices",753,759],[6,"7.30","Transações Acid, Concorrência e Planos de Execução",760,765],[6,"7.31","Bancos Nosql: Redis e Mongodb",766,776],[6,"7.32","Engenharia de Software: Ciclos de Vida e Métodos Ágeis",777,780],[6,"7.33","Requisitos: Elicitação, Especificação, Validação, Histórias de Usuário e Critérios de Aceitação",781,785],[6,"7.34","Modelagem de Sistemas: Bpmn 2.0 e Uml 2.x",786,791],[6,"7.35","Orientação a Objetos, Padrões de Projeto (Gof) e Princípios Solid",792,798],[6,"7.36","Arquitetura de Software: Camadas, Mvc, Hexagonal, Microsserviços e Ddd",799,807],[6,"7.37","Comunicação entre Sistemas: Apis Restful, Graphql, Grpc e Mensageria",808,813],[6,"7.38","Testes de Software: Unitários, Integração, Funcionais, Carga, Estresse, Tdd e Bdd",814,819],[6,"7.39","Versionamento de Código: Git, Gitflow e Trunk-Based Development",820,823],[6,"7.40","Desenvolvimento Front-end: HTML5, CSS3, Javascript, Typescript e Spa",824,829],[6,"7.41","Desenvolvimento Java: Java 11+, Streams Api, Spring Boot, Data Jpa e Hibernate",830,837],[6,"7.42","Desenvolvimento Python: Python 3, Fastapi, Django, Sqlalchemy e Pytest",838,846],[6,"7.43","Desenvolvimento Php: Php 8+, Laravel, Eloquent, Blade e Artisan",847,851],[6,"7.44","Práticas de Código Seguro: Validação e Sanitização de Dados",852,855],[6,"7.45","Ia Generativa: Llms, Engenharia de Prompts (zero-shot, few-shot, Cot)",856,861],[6,"7.46","Devops: Princípios Cams e CI/CD (Gitlab CI/CD e Github Actions)",862,868],[6,"7.47","Infraestrutura Como Código (Iac): Terraform e Ansible",869,874],[6,"7.48","Observabilidade: Prometheus, Grafana, Elk e Lgtm Stack",875,881],[6,"7.49","Engenharia de Dados: Bi, Data Warehouse (Star Schema/Snowflake) e Data Lakes",882,888],[6,"7.50","Processamento de Dados: ETL/ELT, Apache Airflow, Spark e Kafka",889,895],[6,"7.51","Gestão do Conhecimento: Modelo Seci, Conhecimento Tácito e Explícito",896,900],[6,"7.52","Organização do Conhecimento: Taxonomias, Ontologias, Metadados e Indexação",901,906],[6,"7.53","Gestão de Projetos: Scrum (Papéis, Eventos, Artefatos) e Kanban (Wip, Lead Time)",907,913],[7,"8.1","Constituição da República Federativa do Brasil de 1988: Título VIII, Capítulo VI (do Meio Ambiente)",914,914],[7,"8.2","Lei Complementar Federal Nº 140/2011 (Competências Administrativas Ambientais)",915,918],[7,"8.3","Lei Federal Nº 6.938/1981 (Política Nacional do Meio Ambiente e Sisnama)",919,923],[7,"8.4","Lei Estadual Nº 14.675/2009 (Código Estadual do Meio Ambiente de Santa Catarina)",924,946],[7,"8.5","Lei Estadual Nº 17.354/2017 (Criação do Instituto do Meio Ambiente de Santa Catarina - Ima)",947,949]],"days":[[[6,573,577],[4,351,355]],[[2,144,148],[6,578,582]],[[1,48,52],[3,278,282]],[[6,583,587],[4,356,360]],[[0,6,10],[6,588,592]],[[2,149,153],[5,533,537]],[[6,593,597],[4,361,365]],[[7,914,918],[6,598,603]],[[1,53,57],[2,154,158]],[[6,604,608],[4,366,370]],[[3,283,287],[6,609,613]],[[4,371,375],[6,614,618]],[[2,159,163],[1,58,62]],[[6,619,623],[4,376,380]],[[6,624,628],[2,164,168]],[[3,288,293],[6,629,633]],[[0,11,15],[4,381,385]],[[6,634,638],[1,63,67]],[[5,538,542],[6,639,643]],[[2,169,173],[4,386,390]],[[6,644,648],[7,919,923]],[[6,649,653],[4,391,396]],[[1,68,72],[2,174,178]],[[6,654,659],[3,294,298]],[[6,660,664],[4,397,401]],[[2,179,183],[6,665,669]],[[1,73,77],[6,670,674]],[[4,402,406],[0,16,21]],[[6,675,679],[5,543,547]],[[2,184,188],[6,680,684]],[[4,407,411],[3,299,303]],[[6,685,689],[1,78,82]],[[4,412,416],[6,690,694]],[[2,189,193],[7,924,928]],[[6,695,699],[4,417,421]],[[6,700,704],[2,194,198]],[[3,304,308],[6,705,709]],[[1,83,87],[4,422,426]],[[6,710,715],[0,22,26]],[[2,199,203],[6,716,720]],[[4,427,431],[6,721,725]],[[5,548,552],[1,88,92]],[[6,726,730],[4,432,436]],[[2,204,208],[6,731,735]],[[3,309,313],[6,736,740]],[[4,437,441],[7,929,934]],[[6,741,745],[2,209,212]],[[1,93,98],[4,442,446]],[[6,746,750],[3,314,319]],[[6,751,755],[2,213,217]],[[4,447,451],[6,756,760]],[[1,99,103],[0,27,31]],[[6,761,765],[5,553,557]],[[4,452,456],[6,766,770]],[[2,218,222],[6,771,776]],[[4,457,461],[1,104,108]],[[6,777,781],[3,320,324]],[[2,223,227],[6,782,786]],[[4,462,466],[6,787,791]],[[7,935,939],[2,228,232]],[[6,792,796],[4,467,471]],[[1,109,113],[6,797,801]],[[3,325,329],[0,32,37]],[[6,802,806],[4,472,476]],[[2,233,237],[6,807,811]],[[5,558,562],[6,812,816]],[[4,477,481],[1,114,118]],[[6,817,821],[2,238,242]],[[4,482,486],[6,822,826]],[[3,330,334],[6,827,832]],[[2,243,247],[1,119,123]],[[4,487,492],[6,833,837]],[[7,940,944],[6,838,842]],[[4,493,497],[2,248,252]],[[6,843,847],[0,38,42]],[[5,563,567],[6,848,852]],[[1,124,128],[4,498,502]],[[6,853,857],[3,335,340]],[[2,253,257],[6,858,862]],[[4,503,507],[6,863,867]],[[1,129,133],[2,258,262]],[[6,868,872],[4,508,512]],[[6,873,877],[3,341,345]],[[4,513,517],[6,878,882]],[[2,263,267],[7,945,949]],[[6,883,888],[1,134,138]],[[4,518,522],[6,889,893]],[[0,43,47],[5,568,572]],[[6,894,898],[2,268,272]],[[4,523,527],[6,899,903]],[[3,346,350],[1,139,143]],[[6,904,908],[2,273,277]],[[4,528,532],[6,909,913]]]};
+const $=id=>document.getElementById(id);
+let S={b:{},total:0};
+try{S=Object.assign(S,JSON.parse(localStorage.getItem('ima93')||'{}'))}catch(e){}
+const save=()=>{try{localStorage.setItem('ima93',JSON.stringify(S))}catch(e){}};
+let T=S.timer||null,view='c',flt='all',exp=-1,mexp=-1;
+const WD=['dom','seg','ter','qua','qui','sex','sáb'],P2=x=>String(x).padStart(2,'0'),N=D.days.length;
+const dt=i=>new Date(2026,10,12+i),iso=d=>{const x=new Date(d);x.setMinutes(x.getMinutes()-x.getTimezoneOffset());return x.toISOString().slice(0,10)};
+const lab=d=>WD[d.getDay()]+' '+P2(d.getDate())+'/'+P2(d.getMonth()+1);
+const bd=(i,j)=>!!S.b[i+'-'+j],dd=i=>bd(i,0)&&bd(i,1);
+const tops=(a,b)=>D.top.filter(t=>t[3]<=b&&t[4]>=a);
+const pgs=(a,b)=>a===b?'pág. '+a:'págs. '+a+'–'+b;
+function fmt(x){return [Math.floor(x/3600),Math.floor(x%3600/60),x%60].map(P2).join(':')}
+function fmtH(x){return Math.floor(x/3600)+'h '+P2(Math.floor(x%3600/60))+'min'}
+const el=()=>T?Math.max(0,Math.floor((Date.now()-T.t)/1000)):0;
+const bal=document.createElement('div');bal.id='bal';bal.hidden=true;bal.title='Clique para finalizar a leitura';
+bal.innerHTML='<i></i><span id="bt">00:00:00</span><em>finalizar</em>';document.body.appendChild(bal);bal.onclick=()=>stopTimer();
+function ui(){bal.hidden=!T}
+function tick(){if(T)$('bt').textContent=fmt(el())}
+setInterval(tick,1000);
+function startTimer(i,j){if(T){T.i=i;T.j=j;S.timer=T;save();return}T={t:Date.now(),i,j};S.timer=T;save();ui();tick()}
+function stopTimer(){if(!T)return;const k=T.i+'-'+T.j;S.total=(S.total||0)+Math.min(el(),21600);if(!S.b[k])S.b[k]=iso(new Date());T=null;S.timer=null;save();ui();render();rClose()}
+function blk(i,j){const [c,a,b]=D.days[i][j],d=D.disc[c];
+ const tl=tops(a,b).map(t=>t[1]+' '+t[2]+(a>t[3]?' <em>(continuação)</em>':'')+(b<t[4]?' <em>(segue no próximo bloco)</em>':'')).join('<br>');
+ return `<label class="ck${bd(i,j)?' on':''}" style="border-left:3px solid ${d.c}"><input type="checkbox" data-j="${j}"${bd(i,j)?' checked':''}><div><b>${d.n}</b><span>${tl}</span><br><a class="pl" href="#" data-j="${j}">▶ Iniciar estudo</a></div><div class="rg"><small>${a===b?'Página':'Páginas'}</small><b>${a===b?a:a+'–'+b}</b></div></label>`}
+function dayRow(i,cur,today){const d=dt(i),done=dd(i),late=!done&&iso(d)<today,td=iso(d)===today,o=exp===i,k=(bd(i,0)?1:0)+(bd(i,1)?1:0);
+ const tag=done?'OK':late?'ATRASO':td?'HOJE':i===cur?'ATUAL':'';
+ const cls='m'+(done?' done':'')+(i===cur?' cur':'')+(td&&!done?' td':'')+(late?' late':'')+(o?' open':'');
+ const wk=(d.getDay()===1||i===0)?`<div class="wk">Semana de ${P2(d.getDate())}/${P2(d.getMonth()+1)}</div>`:'';
+ return wk+`<div class="${cls}" data-i="${i}"><div class="mh"><div class="n">Dia ${P2(i+1)}</div><div class="dd">${lab(d)}</div><p>${D.days[i].map(x=>`<span class="dc"><i style="background:${D.disc[x[0]].c}"></i>${D.disc[x[0]].n}</span>`).join('')}</p><span class="tag">${tag}</span><div class="mini"><i style="width:${k*50}%"></i></div><span class="chev">${o?'▾':'▸'}</span></div>${o?`<div class="mb">${blk(i,0)+blk(i,1)}</div>`:''}</div>`}
+function modRow(c,donePg){const d=D.disc[c],tot=d.b-d.a+1;let r=0;for(let p=d.a;p<=d.b;p++)if(donePg.has(p))r++;
+ const o=mexp===c,tp=D.top.filter(t=>t[0]===c);
+ const body=tp.map(t=>{let n=0;for(let p=t[3];p<=t[4];p++)if(donePg.has(p))n++;const L=t[4]-t[3]+1,ok=n===L;
+  const ds=[];D.days.forEach((row,i)=>row.forEach(x=>{if(x[0]===c&&x[1]<=t[4]&&x[2]>=t[3])ds.push(i+1)}));
+  return `<div class="tp"><b>${ok?'✓':n?'◐':'·'}</b><div>${t[1]} ${t[2]}<small>${pgs(t[3],t[4])}${ds.length?' · dia '+(ds[0]===ds[ds.length-1]?ds[0]:ds[0]+' a '+ds[ds.length-1]):''}</small></div></div>`}).join('');
+ return `<div class="m${r===tot?' done':''}${o?' open':''}" data-k="${c}"><div class="mh"><span class="dc" style="min-width:0"><i style="background:${d.c}"></i></span><div class="n" style="flex:1;font-size:14px">${d.n}</div><div class="dd">${pgs(d.a,d.b)}</div><span class="tag">${Math.round(r/tot*100)}%</span><div class="mini"><i style="width:${r/tot*100}%"></i></div><span class="chev">${o?'▾':'▸'}</span></div>${o?`<div class="mb">${body}</div>`:''}</div>`}
+function render(){
+ const today=iso(new Date()),cur=D.days.findIndex((_,i)=>!dd(i)),donePg=new Set();let nd=0,late=0;
+ D.days.forEach((row,i)=>{if(dd(i))nd++;else if(iso(dt(i))<today)late++;row.forEach((x,j)=>{if(bd(i,j))for(let p=x[1];p<=x[2];p++)donePg.add(p)})});
+ $('cnt').textContent=nd+'/'+N;$('pgn').textContent=donePg.size+'/'+D.disc.reduce((s,d)=>s+d.b-d.a+1,0);$('hrs').textContent=fmtH(S.total||0);
+ $('pb').style.width=donePg.size/9.44+'%';$('pt').textContent=Math.round(donePg.size/9.44)+'% da apostila lida'+(late?' · '+late+(late>1?' dias atrasados':' dia atrasado'):'');
+ const ds=new Set(Object.values(S.b));let k=0,c=new Date();if(!ds.has(iso(c)))c.setDate(c.getDate()-1);while(ds.has(iso(c))){k++;c.setDate(c.getDate()-1)}
+ $('streak').textContent=k+(k==1?' dia':' dias');
+ const left=Math.round((new Date(2027,1,12)-new Date(new Date().setHours(0,0,0,0)))/864e5);$('left').textContent=left>0?left+' dias':left===0?'É hoje!':'Encerrado';
+ if(cur>=0){$('tt').textContent='Dia '+P2(cur+1)+' · '+lab(dt(cur));$('ts').textContent=D.days[cur].map(x=>D.disc[x[0]].n).join(' + ');$('go').style.display=''}
+ else{$('tt').textContent='Apostila concluída!';$('ts').textContent='Todos os 93 dias foram cumpridos.';$('go').style.display='none'}
+ $('tools').style.display=view==='c'?'':'none';
+ $('grid').innerHTML=view==='c'?D.days.map((_,i)=>i).filter(i=>flt==='all'||(flt==='done')===dd(i)).map(i=>dayRow(i,cur,today)).join(''):D.disc.map((_,c)=>modRow(c,donePg)).join('');
+}
+const G=$('grid');
+G.addEventListener('click',e=>{
+ const pl=e.target.closest('.pl');
+ if(pl){e.preventDefault();const i=+pl.closest('.m').dataset.i,j=+pl.dataset.j,[c,a,b]=D.days[i][j];startTimer(i,j);openReader(a,b,D.disc[c].n+' · Dia '+P2(i+1),'');return}
+ const m=e.target.closest('.mh')&&e.target.closest('.m');if(!m)return;
+ if(m.dataset.i!==undefined){const i=+m.dataset.i;exp=exp===i?-1:i}else{const k=+m.dataset.k;mexp=mexp===k?-1:k}
+ render();const r=G.querySelector('.open');if(r)r.scrollIntoView({block:'nearest'})});
+G.addEventListener('change',e=>{const n=e.target;if(n.dataset.j===undefined||!n.closest('.mb'))return;const key=n.closest('.m').dataset.i+'-'+n.dataset.j;if(n.checked)S.b[key]=iso(new Date());else delete S.b[key];save();render()});
+$('go').onclick=()=>{const c=D.days.findIndex((_,i)=>!dd(i));if(c<0)return;view='c';flt='all';exp=c;document.querySelectorAll('[data-v]').forEach(x=>x.classList.toggle('on',x.dataset.v==='c'));render();const r=G.querySelector('.open');if(r)r.scrollIntoView({block:'center'})};
+document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{flt=b.dataset.f;document.querySelectorAll('[data-f]').forEach(x=>x.classList.toggle('on',x===b));render()});
+document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{view=b.dataset.v;document.querySelectorAll('[data-v]').forEach(x=>x.classList.toggle('on',x===b));render()});
+ui();tick();exp=D.days.findIndex((_,i)=>!dd(i));render();
+
+const PJ='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+let pdfDoc=null,rpage=1,rzoom=1,rR=[0,0],rbusy=false,rpend=false;
+const rd=document.createElement('div');rd.id='rd';rd.hidden=true;
+rd.innerHTML='<div class="rt"><button class="ghost" id="rx">← Voltar</button><div class="rtt"><b id="rtl"></b><span id="rrg" title="Ir ao início do trecho"></span></div><div class="rn"><button class="ghost" id="rp">‹</button><span id="rpg"></span><button class="ghost" id="rnx">›</button></div><div class="rn"><button class="ghost" id="rzm">−</button><button class="ghost" id="rzp">+</button><button class="ghost" id="rinv" title="Inverter cores da página">◐</button></div><a id="rext" class="pl" target="_blank" rel="noopener">Nova aba</a></div><div id="rv"><div id="rmsg"></div><canvas id="rc"></canvas></div><div id="rbar"><button class="ghost" id="rbp">‹ Anterior</button><button id="rbn">Próxima página ›</button></div>';
+document.body.appendChild(rd);
+function loadLib(){return window.pdfjsLib?Promise.resolve():new Promise((ok,no)=>{const s=document.createElement('script');s.src=PJ+'pdf.min.js';s.onload=()=>{pdfjsLib.GlobalWorkerOptions.workerSrc=PJ+'pdf.worker.min.js';const w=document.createElement('script');w.src=PJ+'pdf.worker.min.js';w.onload=()=>ok();w.onerror=no;document.head.appendChild(w)};s.onerror=no;document.head.appendChild(s)})}
+const idb=()=>new Promise((ok,no)=>{const r=indexedDB.open('ima93',1);r.onupgradeneeded=()=>r.result.createObjectStore('f');r.onsuccess=()=>ok(r.result);r.onerror=no});
+async function idbGet(){try{const d=await idb();return await new Promise(ok=>{const q=d.transaction('f').objectStore('f').get('pdf');q.onsuccess=()=>ok(q.result||null);q.onerror=()=>ok(null)})}catch(e){return null}}
+async function idbSet(v){try{const d=await idb();d.transaction('f','readwrite').objectStore('f').put(v,'pdf')}catch(e){}}
+async function loadDoc(){if(pdfDoc)return true;$('rmsg').textContent='Carregando PDF…';
+ const c=await idbGet();if(c){try{await loadLib();pdfDoc=await pdfjsLib.getDocument({data:new Uint8Array(c.slice(0))}).promise;$('rmsg').textContent='';return true}catch(e){}}
+ try{await loadLib();pdfDoc=await pdfjsLib.getDocument({url:encodeURI('analista_informatica_instituto_do_meio_ambiente_do_estado_de_santa_catarina_ima_2026_versao_para_impressao.pdf'),disableAutoFetch:true}).promise;$('rmsg').textContent='';return true}
+ catch(e){$('rmsg').innerHTML=(location.protocol==='file:'?'<b>Para abrir o PDF aqui, clique em "Escolher arquivo" abaixo e selecione o PDF.</b><br>Isso é feito só uma vez.<br><br>':'')+'Não consegui abrir o PDF automaticamente.<br><small>Motivo: '+String(e&&e.message||e).slice(0,140)+(location.protocol==='file:'?' · página aberta direto do computador (file://)':'')+'</small><br>Confira o nome no campo PDF (o arquivo deve estar na mesma pasta) e se há internet para carregar o leitor.<br>Escolha o PDF uma vez: ele fica guardado neste navegador e não será pedido de novo:<br><input type="file" accept="application/pdf" id="rfile">';
+  $('rfile').onchange=async ev=>{const f=ev.target.files[0];if(!f)return;try{await loadLib();const buf=await f.arrayBuffer();idbSet(buf.slice(0));pdfDoc=await pdfjsLib.getDocument({data:new Uint8Array(buf)}).promise;$('rmsg').textContent='';gotoPg(rpage)}catch(x){$('rmsg').textContent='Arquivo inválido.'}};return false}}
+async function rDraw(){if(!pdfDoc)return;if(rbusy){rpend=true;return}rbusy=true;
+ try{const pg=await pdfDoc.getPage(rpage),w=$('rv').clientWidth-24,v0=pg.getViewport({scale:1}),sc=Math.max(.3,w/v0.width)*rzoom,dpr=Math.min(window.devicePixelRatio||1,2),v=pg.getViewport({scale:sc*dpr}),c=$('rc');
+ c.width=v.width;c.height=v.height;c.style.width=v.width/dpr+'px';c.style.height=v.height/dpr+'px';await pg.render({canvasContext:c.getContext('2d'),viewport:v}).promise}catch(e){}
+ rbusy=false;if(rpend){rpend=false;rDraw()}}
+function rUpd(){const a=rR[0],b=rR[1],last=rpage>=b;$('rpg').textContent='Pág. '+rpage;$('rrg').textContent='Trecho: págs. '+(a===b?a:a+'–'+b)+' · '+(rpage-a+1)+' de '+(b-a+1);$('rrg').className='in';$('rp').disabled=rpage<=a;$('rnx').disabled=last;$('rbp').disabled=rpage<=a;$('rbn').textContent=last?'✓ Concluir trecho':'Próxima página ›'}
+function gotoPg(p){rpage=Math.min(Math.max(rR[0],p),rR[1]);rUpd();$('rv').scrollTop=0;rDraw()}
+async function openReader(a,b,t,href){rR=[a,b];rpage=a;$('rtl').textContent=t;$('rext').href=href;$('rc').classList.toggle('inv',!!S.inv);rd.hidden=false;document.body.style.overflow='hidden';document.body.classList.add('reading');rUpd();if(await loadDoc())gotoPg(a)}
+function rClose(){rd.hidden=true;document.body.style.overflow='';document.body.classList.remove('reading')}
+$('rx').onclick=rClose;$('rp').onclick=()=>gotoPg(rpage-1);$('rnx').onclick=()=>gotoPg(rpage+1);$('rrg').onclick=()=>gotoPg(rR[0]);
+$('rbp').onclick=()=>gotoPg(rpage-1);$('rbn').onclick=()=>{if(rpage>=rR[1]){if(T)stopTimer();else rClose()}else gotoPg(rpage+1)};
+$('rzm').onclick=()=>{rzoom=Math.max(.6,rzoom-.25);rDraw()};$('rzp').onclick=()=>{rzoom=Math.min(3,rzoom+.25);rDraw()};
+$('rinv').onclick=()=>{S.inv=!S.inv;save();$('rc').classList.toggle('inv',!!S.inv)};
+document.addEventListener('keydown',e=>{if(rd.hidden||e.target.tagName==='INPUT')return;if(e.key==='ArrowRight')gotoPg(rpage+1);else if(e.key==='ArrowLeft')gotoPg(rpage-1);else if(e.key==='Escape')rClose()});
+let tx=0,ty=0;$('rv').addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+$('rv').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(rzoom<=1&&Math.abs(dx)>70&&Math.abs(dy)<50)gotoPg(rpage+(dx<0?1:-1))},{passive:true});
+window.addEventListener('resize',()=>{if(!rd.hidden)rDraw()});
+</script></body></html>
